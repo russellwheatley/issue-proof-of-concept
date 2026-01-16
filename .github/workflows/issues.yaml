@@ -19,6 +19,3 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: ./
-        with:
-          endpoint_url: "https://us-central1-project-board-manager.cloudfunctions.net/ingestGithubDataEvents"
-          oidc_audience: "https://us-central1-project-board-manager.cloudfunctions.net/ingestGithubDataEvents"

@@ -6,11 +6,9 @@ branding:
 
 inputs:
   endpoint_url:
-    description: 'The endpoint URL to POST events to'
-    required: true
-  oidc_audience:
-    description: 'The OIDC audience for authentication'
-    required: true
+    description: 'The endpoint URL to POST events to (also used as OIDC audience)'
+    required: false
+    default: 'https://us-central1-project-board-manager.cloudfunctions.net/ingestGithubDataEvents'
 
 runs:
   using: 'composite'
@@ -63,7 +61,7 @@ runs:
       shell: bash
       env:
         ENDPOINT_URL: ${{ inputs.endpoint_url }}
-        OIDC_AUDIENCE: ${{ inputs.oidc_audience }}
+        OIDC_AUDIENCE: ${{ inputs.endpoint_url }}
       run: |
         set -euo pipefail
 
@@ -113,7 +111,7 @@ runs:
       id: oidc
       uses: actions/github-script@v7
       env:
-        OIDC_AUDIENCE: ${{ inputs.oidc_audience }}
+        OIDC_AUDIENCE: ${{ inputs.endpoint_url }}
       with:
         script: |
           const token = await core.getIDToken(process.env.OIDC_AUDIENCE);
