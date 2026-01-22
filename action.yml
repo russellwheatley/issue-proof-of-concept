@@ -9,6 +9,26 @@ inputs:
     description: 'The endpoint URL to POST events to (also used as OIDC audience)'
     required: false
     default: 'https://us-central1-project-board-manager.cloudfunctions.net/ingestGithubDataEvents'
+  project-boards:
+    description: 'Array of project board numbers to update (e.g., [54, 34])'
+    required: false
+    default: '[]'
+  blocked:
+    description: 'Array of labels that indicate blocked status'
+    required: false
+    default: '[]'
+  in_progress:
+    description: 'Array of labels that indicate in progress status'
+    required: false
+    default: '[]'
+  ready:
+    description: 'Array of labels that indicate ready status'
+    required: false
+    default: '[]'
+  needs_response:
+    description: 'Array of labels that indicate needs response status'
+    required: false
+    default: '[]'
 
 runs:
   using: 'composite'
@@ -62,6 +82,11 @@ runs:
       env:
         ENDPOINT_URL: ${{ inputs.endpoint_url }}
         OIDC_AUDIENCE: ${{ inputs.endpoint_url }}
+        PROJECT_BOARDS: ${{ inputs.project-boards }}
+        BLOCKED_LABELS: ${{ inputs.blocked }}
+        IN_PROGRESS_LABELS: ${{ inputs.in_progress }}
+        READY_LABELS: ${{ inputs.ready }}
+        NEEDS_RESPONSE_LABELS: ${{ inputs.needs_response }}
       run: |
         set -euo pipefail
 
@@ -102,7 +127,15 @@ runs:
             "state": "${{ github.event.pull_request.state || '' }}"
           },
 
-          "linked_issue_urls": $LINKED_ISSUE_URLS_JSON
+          "linked_issue_urls": $LINKED_ISSUE_URLS_JSON,
+
+          "project": {
+            "boards": ${PROJECT_BOARDS:-[]},
+            "blocked": ${BLOCKED_LABELS:-[]},
+            "in_progress": ${IN_PROGRESS_LABELS:-[]},
+            "ready": ${READY_LABELS:-[]},
+            "needs_response": ${NEEDS_RESPONSE_LABELS:-[]}
+          }
         }
         EOF
 
