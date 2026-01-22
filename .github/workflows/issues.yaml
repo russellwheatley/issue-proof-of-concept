@@ -20,3 +20,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./
+        with:
+          project-boards: '[54, 34]'
+          blocked: '["blocked", "waiting-for-external"]'
+          in_progress: '["in progress", "wip"]'
+          ready: '["ready", "approved"]'
+          needs_response: '["needs-info", "question"]'
