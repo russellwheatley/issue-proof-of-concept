@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./
+      - uses: invertase/invertase-project-board@v1
         with:
           project-boards: '[54, 34]'
           blocked: '["blocked", "waiting-for-external"]'
