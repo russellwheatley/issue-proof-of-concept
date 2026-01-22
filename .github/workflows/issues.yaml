@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: invertase/invertase-project-board@v1
         with:
-          project-boards: '[54, 34]'
+          project-boards: '[73]'
           blocked: '["blocked", "waiting-for-external"]'
           in_progress: '["in progress", "wip"]'
           ready: '["ready", "approved"]'
