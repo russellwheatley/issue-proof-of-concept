@@ -1,26 +1,26 @@
-name: Forward issue + PR activity to project board manager
+# name: Forward issue + PR activity to project board manager
 
-on:
-  issues:
-    types: [opened, reopened, closed, labeled, unlabeled]
-  issue_comment:
-    types: [created]
-  pull_request:
-    types: [opened, edited, reopened, synchronize]
+# on:
+#   issues:
+#     types: [opened, reopened, closed, labeled, unlabeled]
+#   issue_comment:
+#     types: [created]
+#   pull_request:
+#     types: [opened, edited, reopened, synchronize]
 
-permissions:
-  id-token: write
-  issues: read
-  pull-requests: read
+# permissions:
+#   id-token: write
+#   issues: read
+#   pull-requests: read
 
-jobs:
-  forward:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: invertase/invertase-project-board@v1
-        with:
-          project-boards: '[73]'
-          blocked: '["blocked", "waiting-for-external"]'
-          in_progress: '["in progress", "wip"]'
-          ready: '["ready", "approved"]'
-          needs_response: '["needs-info", "question"]'
+# jobs:
+#   forward:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: invertase/invertase-project-board@v1
+#         with:
+#           project-boards: '[73]'
+#           blocked: '["blocked", "waiting-for-external"]'
+#           in_progress: '["in progress", "wip"]'
+#           ready: '["ready", "approved"]'
+#           needs_response: '["needs-info", "question"]'
